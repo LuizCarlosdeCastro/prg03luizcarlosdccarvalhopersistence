@@ -2,22 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package br.com.ifba.infrastructure.dao;
+package br.com.ifba.curso.controller;
 
-
+import br.com.ifba.curso.entity.Curso;
 import java.util.List;
-
 /**
  *
- * @author ianep
+ * @author Arkins
  */
-public interface GenericIDao<T> {
-    
-      T save(T entity);
-    T update(T entity);
+public interface CursoIController {
+     Curso save(Curso curso);
+    Curso update(Curso curso);
     void delete(Long id);
-    T findById(Long id);
-    List<T> findAll();
-    
-    
+    Curso findById(Long id);
+    List<Curso> findAll();
 }

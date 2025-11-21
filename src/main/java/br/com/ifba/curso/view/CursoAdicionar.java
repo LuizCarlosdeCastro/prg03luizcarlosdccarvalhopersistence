@@ -115,11 +115,11 @@ public class CursoAdicionar extends javax.swing.JDialog {
         curso.setNome(txtNome.getText());
 
         // Pega o texto do 'txtCodigo' e armazena no objeto.
-        curso.setCodigoCurso(txtCodigo.getText());
+        curso.setCodigo(txtCodigo.getText());
 
         // Define um valor padrão (regra de negócio).
         // Como esta é uma tela de "Adicionar"
-        curso.setAtivo(true);
+        curso.setStatus(true);
 
         // --- ETAPA 2: TENTAR SALVAR NO BANCO DE DADOS ---
         // Usamos um bloco 'try...catch' porque operações de banco de dados

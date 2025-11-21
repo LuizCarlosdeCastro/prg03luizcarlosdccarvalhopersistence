@@ -4,54 +4,35 @@
  */
 package br.com.ifba.curso.entity;
 
-import br.com.ifba.infrastructure.entity.PersistenceEntity;
-import jakarta.persistence.Entity; 
-import jakarta.persistence.GeneratedValue; 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id; 
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.io.Serializable;
 
 
 @Entity 
 @Table( name = "cursos")
-public class Curso extends PersistenceEntity implements Serializable {
-
-    
-    @Id 
-
-   
+public class Curso {
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    /**
-     * Campo 'nome'. O JPA irá criar uma coluna chamada 'nome' no banco. Por
-     * padrão, será um VARCHAR(255).
-     */
+    
     private String nome;
+    private String codigo;
+    private boolean status; 
 
-    /**
-     * Campo 'codigoCurso'. O JPA irá criar uma coluna chamada 'codigoCurso' no
-     * banco. (É uma boa prática adicionar @Column(unique = true) aqui para
-     * garantir que não haja dois cursos com o mesmo código).
-     */
-    private String codigoCurso;
+    public Curso(String nome, String codigo) {
+        this.nome = nome;
+        this.codigo = codigo;
+        this.status = true;
+    }
 
-    /**
-     * Campo 'ativo'. O JPA irá criar uma coluna 'ativo' no banco, geralmente do
-     * tipo 'boolean' ou 'TINYINT(1)' no MySQL.
-     */
-    private boolean ativo;
+    public Curso() {
+    }
+    
+    
 
-    /*
-     * GETTERS E SETTERS
-     *
-     * O JPA EXIGE que a classe de entidade tenha getters e setters públicos
-     * (ou um construtor padrão) para que ele possa "hidratar" (preencher)
-     * o objeto com dados do banco e ler dados do objeto para salvar no banco.
-     *
-     * 'getId' e 'setId' são usados para o ID.
-     */
     public Long getId() {
         return id;
     }
@@ -68,20 +49,20 @@ public class Curso extends PersistenceEntity implements Serializable {
         this.nome = nome;
     }
 
-    public String getCodigoCurso() {
-        return codigoCurso;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCodigoCurso(String codigoCurso) {
-        this.codigoCurso = codigoCurso;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
-    public boolean isAtivo() {
-        return ativo;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
-
+  
 }

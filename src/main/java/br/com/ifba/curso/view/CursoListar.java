@@ -221,7 +221,7 @@ public class CursoListar extends javax.swing.JFrame {
                     // 8. Cria um "array de objetos" que representa os dados de UMA linha.
                     //    IMPORTANTE: A ordem aqui deve ser a mesma das colunas da tabela.
                     curso.getNome(), // Coluna 0: "Nome"
-                    curso.getCodigoCurso(), // Coluna 1: "Codigo do Curso"
+                    curso.getCodigo(), // Coluna 1: "Codigo do Curso"
                     null, // Coluna 2: "Remover" (ainda não implementado)
                     null // Coluna 3: "Editar" (ainda não implementado)
                 });

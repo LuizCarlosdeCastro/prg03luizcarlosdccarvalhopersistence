@@ -4,11 +4,9 @@
  */
 package br.com.ifba.infrastructure.dao;
 
-import br.com.ifba.infrastructure.entity.PersistenceEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -16,58 +14,84 @@ import java.util.List;
  * @author ianep
  * @param <Entity>
  */
-@SuppressWarnings("unchecked")
-public class GenericDao <Entity extends PersistenceEntity> implements GenericIDao<Entity> {
-    
-    protected static   EntityManager entityManager;
-    
-    static{
-        EntityManagerFactory factory = Persistence.
-                createEntityManagerFactory("poo_dao");
-        entityManager = factory.createEntityManager();
-    
+public abstract class GenericDao<T> implements GenericIDao<T> {
+    private static final EntityManagerFactory EMF =
+            Persistence.createEntityManagerFactory("poobanco2");
+
+    protected abstract Class<T> getEntityClass();
+
+    protected EntityManager getEntityManager() {
+        return EMF.createEntityManager();
     }
 
     @Override
-    public Entity save(Entity entity) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(entity);
-        entityManager.getTransaction().commit();
-        return entity;
+    public T save(T entity) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(entity);
+            em.getTransaction().commit();
+            return entity;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            throw new RuntimeException("Erro ao salvar entidade: " + e.getMessage(), e);
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    public Entity update(Entity entity) {
-        entityManager.getTransaction().begin();
-        entityManager.merge(entity);
-        entityManager.getTransaction().commit();
-        return entity;
+    public T update(T entity) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            T merged = em.merge(entity);
+            em.getTransaction().commit();
+            return merged;
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            throw new RuntimeException("Erro ao atualizar entidade: " + e.getMessage(), e);
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    public Entity delete(Entity entity) {
-        entityManager.getTransaction().begin();
-        entityManager.remove(entity);
-        entityManager.getTransaction().commit();
-        return entity;
+    public void delete(Long id) {
+        EntityManager em = getEntityManager();
+        try {
+            T entity = em.find(getEntityClass(), id);
+            if (entity != null) {
+                em.getTransaction().begin();
+                em.remove(entity);
+                em.getTransaction().commit();
+            }
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) em.getTransaction().rollback();
+            throw new RuntimeException("Erro ao deletar entidade: " + e.getMessage(), e);
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    public List<Entity> findAll() {
-        return entityManager.createQuery(("from" + 
-                getTypeClass().getName())).getResultList();
+    public T findById(Long id) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.find(getEntityClass(), id);
+        } finally {
+            em.close();
+        }
     }
 
     @Override
-    public Entity findbyID(Long id) {
-        return (Entity) entityManager.find(getTypeClass(), id);
-    }
-    
-    protected Class<?> getTypeClass(){
-        
-        Class<?> clazz = (Class<?>) ((ParameterizedType) this.getClass().
-                getGenericSuperclass()).
-                getActualTypeArguments()[0];
-        return clazz;
+    public List<T> findAll() {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("FROM " + getEntityClass().getSimpleName(), getEntityClass())
+                     .getResultList();
+        } finally {
+            em.close();
+        }
     }
 }

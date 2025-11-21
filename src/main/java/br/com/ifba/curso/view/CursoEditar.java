@@ -162,7 +162,7 @@ public class CursoEditar extends javax.swing.JDialog {
     private void preencherCampos() {
         if (this.cursoParaEditar != null) {
             txtNomeedit.setText(this.cursoParaEditar.getNome());
-            txtCodigoedit.setText(this.cursoParaEditar.getCodigoCurso());
+            txtCodigoedit.setText(this.cursoParaEditar.getCodigo());
         }
     }
 
@@ -192,7 +192,7 @@ public class CursoEditar extends javax.swing.JDialog {
             // Cria um "pai" e um "curso" falsos só para o 'main' funcionar
             Curso cursoFalso = new Curso();
             cursoFalso.setNome("Curso de Teste");
-            cursoFalso.setCodigoCurso("TST01");
+            cursoFalso.setCodigo("TST01");
 
             CursoEditar dialog = new CursoEditar(new javax.swing.JFrame(), true, cursoFalso);
             dialog.addWindowListener(new java.awt.event.WindowAdapter() {
