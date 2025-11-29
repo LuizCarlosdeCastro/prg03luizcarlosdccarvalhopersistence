@@ -92,11 +92,11 @@ public class CursoListar extends javax.swing.JFrame {
         if (selectedRow == -1) return;
 
         int modelRow = tblCurso.convertRowIndexToModel(selectedRow);
-        String codigoCurso = (String) tblCurso.getModel().getValueAt(modelRow, 1);
+        Long id = (Long) tblCurso.getModel().getValueAt(modelRow, 2);
 
         try {
             
-             Curso cursoParaEditar = cursoController.findByCodigo(codigoCurso); 
+             Curso cursoParaEditar = cursoController.findById(id); 
             
             if(cursoParaEditar != null){
                 
@@ -118,7 +118,7 @@ public class CursoListar extends javax.swing.JFrame {
         if (selectedRow == -1) return;
 
         int modelRow = tblCurso.convertRowIndexToModel(selectedRow);
-        String codigoCurso = (String) tblCurso.getModel().getValueAt(modelRow, 1);
+        Long id = (Long) tblCurso.getModel().getValueAt(modelRow, 2);
         String nomeCurso = (String) tblCurso.getModel().getValueAt(modelRow, 0);
 
         int confirm = JOptionPane.showConfirmDialog(this, 
@@ -129,7 +129,7 @@ public class CursoListar extends javax.swing.JFrame {
                
                 
                 
-                Curso curso = cursoController.findByCodigo(codigoCurso);
+                Curso curso = cursoController.findById(id);
                 
                 if(curso != null){
                     cursoController.delete(curso);

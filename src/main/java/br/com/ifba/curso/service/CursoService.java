@@ -4,10 +4,9 @@
  */
 package br.com.ifba.curso.service;
 
-import br.com.ifba.curso.dao.CursoDao;
-import br.com.ifba.curso.dao.CursoIDao;
 import br.com.ifba.curso.entity.Curso;
 import br.com.ifba.curso.infrastructure.util.StringUtil;
+import br.com.ifba.curso.repository.CursoRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class CursoService implements CursoIService {
     
     @Autowired
-    private CursoIDao cursoDao;
+    private CursoRepository cursoRepository;
     
      @Override
     public Curso save(Curso curso){
@@ -34,7 +33,7 @@ public class CursoService implements CursoIService {
         }
         
         
-            return cursoDao.save(curso);
+            return cursoRepository.save(curso);
         
     }
     
@@ -45,7 +44,7 @@ public class CursoService implements CursoIService {
         }else if(curso.getId() == null){
             throw new RuntimeException("Curso não existente no banco de dados");
         }else{
-            cursoDao.delete(curso);
+            cursoRepository.delete(curso);
         }
     }
     
@@ -54,22 +53,21 @@ public class CursoService implements CursoIService {
         if(curso == null){
             throw new RuntimeException("Dados do " + "curso não preenchidos.");
         }else{
-            return cursoDao.update(curso);
+            return cursoRepository.save(curso);
         }
     }
     
     @Override
     public List<Curso> findAll() throws RuntimeException{
-       return cursoDao.findAll();
+       return cursoRepository.findAll();
     }
     
     @Override
     public Curso findById(Long id) throws RuntimeException{
-        return cursoDao.findById(id);
+        return cursoRepository.findById(id).orElse(null);
     }
+
     
-    @Override
-    public Curso findByCodigo(String codigo) throws RuntimeException{
-        return cursoDao.findByCodigo(codigo);
-    }
+    
+    
 }

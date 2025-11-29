@@ -15,6 +15,6 @@ public interface CursoIService {
     public Curso update(Curso curso);
     public List<Curso> findAll();
     public Curso findById(Long id);
-    public Curso findByCodigo(String codigo);
+   
     
 }

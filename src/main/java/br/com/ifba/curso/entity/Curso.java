@@ -11,6 +11,7 @@ import jakarta.persistence.Table;
 import java.io.Serializable;
 
 
+
 @Entity 
 @Table( name = "cursos")
 public class Curso extends PersistenceEntity implements Serializable {
