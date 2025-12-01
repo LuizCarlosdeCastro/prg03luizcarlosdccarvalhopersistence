@@ -11,10 +11,7 @@ import javax.swing.JOptionPane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-/**
- *
- * @author dudan
- */
+
 @Component
 public class CursoEditar extends javax.swing.JDialog {
 

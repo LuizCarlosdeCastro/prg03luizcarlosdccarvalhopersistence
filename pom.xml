@@ -72,6 +72,17 @@
              <groupId>org.springframework.boot</groupId>
              <artifactId>spring-boot-data-jpa</artifactId>
      </dependency>
+     <dependency>
+             <groupId>org.projectlombok</groupId>
+             <artifactId>lombok</artifactId>
+             <optional>true</optional>
+     </dependency>
+	 <dependency>
+	  <groupId>cn.itlym</groupId>
+	  <artifactId>shoulder-lombok</artifactId>
+	  <version>0.0.1</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>

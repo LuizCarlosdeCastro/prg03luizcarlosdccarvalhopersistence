@@ -8,15 +8,22 @@ import br.com.ifba.curso.entity.Curso;
 import br.com.ifba.curso.infrastructure.util.StringUtil;
 import br.com.ifba.curso.repository.CursoRepository;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class CursoService implements CursoIService {
     
-    @Autowired
-    private CursoRepository cursoRepository;
+    
+    private final CursoRepository cursoRepository;
+    
+    public CursoService(CursoRepository cursoRepository){
+        this.cursoRepository = cursoRepository;
+    }
+    
+    private static final Logger log = LoggerFactory.
+            getLogger(CursoService.class);
     
      @Override
     public Curso save(Curso curso){

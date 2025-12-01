@@ -9,11 +9,18 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity; 
 import jakarta.persistence.Table;
 import java.io.Serializable;
-
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 
 @Entity 
 @Table( name = "cursos")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class Curso extends PersistenceEntity implements Serializable {
 
 
@@ -31,37 +38,5 @@ public class Curso extends PersistenceEntity implements Serializable {
 
    
    
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCodigoCurso() {
-        return codigoCurso;
-    }
-
-    public void setCodigoCurso(String codigoCurso) {
-        this.codigoCurso = codigoCurso;
-    }
-
-    public boolean isAtivo() {
-        return ativo;
-    }
-
-    public void setAtivo(boolean ativo) {
-        this.ativo = ativo;
-    }
-
 }
